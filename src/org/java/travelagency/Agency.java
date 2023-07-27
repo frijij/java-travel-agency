@@ -10,8 +10,62 @@ Se la creazione della vacanza genera un errore, il programma non deve interrompe
 dei messaggi di errore che permettono all’utente di capire cosa è andato storto e di ripetere l’inserimento.
 */
 
+import java.time.LocalDate;
+import java.util.Scanner;
+
 public class Agency {
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
 
+        System.out.println("*****WELCOME TO JAVA TRAVEL AGENCY*****");
+
+        // chiedere se vuole comprare una vacanza o uscire
+        // finchè non vuole uscire vuole comprare una vacanza
+        boolean exit = false;
+        Holiday holiday = null;
+        while (!exit) {
+            System.out.println("What do you want to do? (1 = book a holiday; 2 = exit): ");
+            String choice= scan.nextLine();
+            switch (choice){
+                case "1":
+                    // l'utente inserisce la destinazione e le date della sua vacanza
+                    String destination = null;
+                    LocalDate startOfHoliday = null;
+                    LocalDate endOfHoliday = null;
+                    while (holiday == null) {
+                        System.out.println("Choose a destination: ");
+                        destination = scan.nextLine();
+                        System.out.println("From (yyyy-mm-dd): ");
+                        try {
+                            startOfHoliday = LocalDate.parse(scan.nextLine());
+                        } catch (Exception e) {
+                            System.out.println("Invalid date format.");
+                        }
+                        System.out.println("To (yyyy-mm-dd): ");
+                        try {
+                            endOfHoliday = LocalDate.parse(scan.nextLine());
+                        } catch (Exception e) {
+                            System.out.println("Invalid date format.");
+                        }
+                        try {
+                            holiday = new Holiday(destination, startOfHoliday, endOfHoliday);
+                        } catch (Exception e){
+                            System.out.println("Invalid parameters.");
+                            System.out.println(e.getMessage());
+                        }
+                    }
+
+                    System.out.println(holiday);
+                    break;
+                case "2":
+                    // l'utente decide di uscire
+                    exit= true;
+                    System.out.println("Bye bye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
+            }
+        }
     }
 }

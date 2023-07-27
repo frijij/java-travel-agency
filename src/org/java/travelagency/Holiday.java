@@ -20,15 +20,15 @@ Se fallisce la validazione vanno sollevate opportune eccezioni
 
     public Holiday(String destination, LocalDate startOfHoliday, LocalDate endOfHoliday) throws RuntimeException{
         if (destination == null || destination.isEmpty()) {
-            throw new RuntimeException("destination cannot be null or empty");
+            throw new RuntimeException("Destination cannot be null or empty.");
         }
 
         if (startOfHoliday == null || startOfHoliday.isBefore(LocalDate.now())) {
-            throw new RuntimeException("Holiday cannot start before the current date");
+            throw new RuntimeException("Holiday cannot be null or start before the current date.");
         }
 
         if (endOfHoliday == null || endOfHoliday.isBefore(startOfHoliday)){
-            throw new RuntimeException("Holiday cannot end before the starting date");
+            throw new RuntimeException("Holiday cannot be null or end before the starting date.");
         }
 
         this.destination = destination;
@@ -42,7 +42,16 @@ Se fallisce la validazione vanno sollevate opportune eccezioni
     //METODI
     // metodo per calcolare la durata in giorni della vacanza
 public int getHolidayDuration (){
-    Period holidayDuration= Period.between(startOfHoliday,endOfHoliday);
+    Period holidayDuration= Period.between(startOfHoliday,endOfHoliday).plusDays(1);
     return holidayDuration.getDays();
-}
+    }
+
+    @Override
+    public String toString() {
+        return "Your "+
+                getHolidayDuration()+
+                " days holiday in " + destination +
+                " from " + startOfHoliday + " to " +
+                endOfHoliday + " has been successfully booked!";
+    }
 }
