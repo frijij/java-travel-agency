@@ -1,6 +1,7 @@
 package org.java.travelagency;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Holiday {
     // ATTRIBUTI: destinazione, data inizio, data fine
@@ -40,5 +41,8 @@ Se fallisce la validazione vanno sollevate opportune eccezioni
 
     //METODI
     // metodo per calcolare la durata in giorni della vacanza
-
+public int getHolidayDuration (){
+    Period holidayDuration= Period.between(startOfHoliday,endOfHoliday);
+    return holidayDuration.getDays();
+}
 }
